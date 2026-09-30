@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Kidsanapong Aroonrunglert – Online Resume</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;800&family=Sarabun:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f3efe6; --ink:#1d1a2b; --muted:#5b5670; --line:#cfc8b8;
+  --stage:#1d1a2b; --glow:#ff5d73; --card:#fffdf8;
+}
+@media (prefers-color-scheme:dark){
+  :root{--bg:#141220;--ink:#f1ecff;--muted:#a9a3c4;--line:#3a3555;--stage:#0c0a16;--glow:#ff7a8c;--card:#1c192e}
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:'Sarabun',system-ui,sans-serif;line-height:1.7;font-size:17px}
+h1,h2{font-family:'Bricolage Grotesque','Sarabun',sans-serif;line-height:1.1;margin:0}
+header{background:var(--stage);color:#f6f1ff;padding:64px 24px 56px;
+  background-image:radial-gradient(ellipse 60% 90% at 50% 120%,rgba(255,93,115,.45),transparent 70%)}
+.wrap{max-width:720px;margin:0 auto}
+header h1{font-size:clamp(2.4rem,9vw,4.4rem);font-weight:800;letter-spacing:-.02em}
+header p{margin:14px 0 0;color:#cfc7ea}
+.nick{display:inline-block;margin-top:18px;padding:4px 14px;border:1.5px solid var(--glow);border-radius:999px;color:#fff;font-weight:600}
+main{padding:8px 24px 64px}
+section{padding:36px 0;border-bottom:1px solid var(--line)}
+section:last-of-type{border-bottom:0}
+h2{font-size:1.6rem;font-weight:600;margin-bottom:14px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:18px 20px}
+.card strong{display:block;font-size:1.1rem}
+.card span{color:var(--muted)}
+ul{margin:0;padding:0;list-style:none;display:flex;flex-wrap:wrap;gap:10px}
+li{background:var(--stage);color:#fff;padding:6px 16px;border-radius:6px}
+footer{text-align:center;color:var(--muted);padding:0 24px 40px;font-size:.9rem}
+:focus-visible{outline:3px solid var(--glow);outline-offset:3px}
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap">
+    <h1>Kidsanapong<br>Aroonrunglert</h1>
+    <span class="nick">Pooh</span>
+    <p>Nonthaburi, Thailand</p>
+  </div>
+</header>
+
+<main class="wrap">
+  <section id="profile">
+    <h2>Profile</h2>
+    <p>สวัสดีครับ ผมชื่อกิดสนพงษ์ (พูห์) นักศึกษาจาก UTCC ที่มีประสบการณ์ทำงานในสายคอนเสิร์ตและไลฟ์เฮาส์ ผมชอบทำงานเป็นทีม รับมือกับสถานการณ์หน้างานได้ดี และรักดนตรีเป็นชีวิตจิตใจ ตอนนี้กำลังมองหาโอกาสฝึกงานและการทำงานที่ได้เรียนรู้สิ่งใหม่ ๆ</p>
+  </section>
+
+  <section id="experience">
+    <h2>Work experience</h2>
+    <div class="card">
+      <strong>Melt Livehouse Concert</strong>
+      <span>ประสบการณ์ทำงานในไลฟ์เฮาส์และงานคอนเสิร์ต ทำงานร่วมกับทีมงานและผู้ชม</span>
+    </div>
+  </section>
+
+  <section id="education">
+    <h2>Education</h2>
+    <div class="card">
+      <strong>University of the Thai Chamber of Commerce (UTCC)</strong>
+      <span>มหาวิทยาลัยหอการค้าไทย</span>
+    </div>
+  </section>
+
+  <section id="interests">
+    <h2>Interests</h2>
+    <ul>
+      <li>Playing guitar</li>
+      <li>Singing</li>
+    </ul>
+  </section>
+
+  <section id="contact">
+    <h2>Address</h2>
+    <p>Nonthaburi, Thailand</p>
+  </section>
+</main>
+
+<footer>© 2026 Kidsanapong Aroonrunglert</footer>
+</body>
+</html>
