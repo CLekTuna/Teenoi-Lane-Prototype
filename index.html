@@ -1,87 +1,942 @@
 <!DOCTYPE html>
-<html lang="th">
+<html lang="th" class="dark">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Kidsanapong Aroonrunglert – Online Resume</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;800&family=Sarabun:wght@400;600&display=swap" rel="stylesheet">
-<style>
-:root{
-  --bg:#f3efe6; --ink:#1d1a2b; --muted:#5b5670; --line:#cfc8b8;
-  --stage:#1d1a2b; --glow:#ff5d73; --card:#fffdf8;
-}
-@media (prefers-color-scheme:dark){
-  :root{--bg:#141220;--ink:#f1ecff;--muted:#a9a3c4;--line:#3a3555;--stage:#0c0a16;--glow:#ff7a8c;--card:#1c192e}
-}
-*{box-sizing:border-box}
-html{scroll-behavior:smooth}
-body{margin:0;background:var(--bg);color:var(--ink);font-family:'Sarabun',system-ui,sans-serif;line-height:1.7;font-size:17px}
-h1,h2{font-family:'Bricolage Grotesque','Sarabun',sans-serif;line-height:1.1;margin:0}
-header{background:var(--stage);color:#f6f1ff;padding:64px 24px 56px;
-  background-image:radial-gradient(ellipse 60% 90% at 50% 120%,rgba(255,93,115,.45),transparent 70%)}
-.wrap{max-width:720px;margin:0 auto}
-header h1{font-size:clamp(2.4rem,9vw,4.4rem);font-weight:800;letter-spacing:-.02em}
-header p{margin:14px 0 0;color:#cfc7ea}
-.nick{display:inline-block;margin-top:18px;padding:4px 14px;border:1.5px solid var(--glow);border-radius:999px;color:#fff;font-weight:600}
-main{padding:8px 24px 64px}
-section{padding:36px 0;border-bottom:1px solid var(--line)}
-section:last-of-type{border-bottom:0}
-h2{font-size:1.6rem;font-weight:600;margin-bottom:14px}
-.card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:18px 20px}
-.card strong{display:block;font-size:1.1rem}
-.card span{color:var(--muted)}
-ul{margin:0;padding:0;list-style:none;display:flex;flex-wrap:wrap;gap:10px}
-li{background:var(--stage);color:#fff;padding:6px 16px;border-radius:6px}
-footer{text-align:center;color:var(--muted);padding:0 24px 40px;font-size:.9rem}
-:focus-visible{outline:3px solid var(--glow);outline-offset:3px}
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teenoi Express Lane — สายพานส่งด่วนสองชั้น</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Prompt for clean Thai UI -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Prompt', 'sans-serif'],
+                    },
+                    colors: {
+                        bgMain: '#121316',
+                        cardDark: '#1b1d22',
+                        cardHover: '#23262d',
+                        borderSubtle: '#2a2d36',
+                        teenoiRed: '#e11d48',
+                        expressBlue: '#3b82f6',
+                        returnAmber: '#eab308',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            background-color: #121316;
+            color: #f3f4f6;
+            font-family: 'Prompt', sans-serif;
+            overflow-x: hidden;
+            user-select: none;
+        }
+
+        /* Custom Range Slider Styling */
+        input[type="range"] {
+            -webkit-appearance: none;
+            appearance: none;
+            background: transparent;
+            cursor: pointer;
+        }
+        input[type="range"]::-webkit-slider-runnable-track {
+            height: 6px;
+            border-radius: 999px;
+            background: #2f333d;
+        }
+        input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            height: 22px;
+            width: 8px;
+            border-radius: 4px;
+            background: #ffffff;
+            margin-top: -8px;
+            box-shadow: 0 0 10px rgba(255,255,255,0.5);
+            transition: transform 0.15s ease;
+        }
+        input[type="range"]::-webkit-slider-thumb:hover {
+            transform: scaleY(1.15);
+        }
+
+        /* Subtle glowing effects */
+        .booth-selected {
+            background: linear-gradient(180deg, rgba(30, 58, 138, 0.45) 0%, rgba(23, 37, 84, 0.65) 100%);
+            border-color: #60a5fa !important;
+            box-shadow: 0 0 20px rgba(59, 130, 246, 0.25);
+        }
+
+        .toast-enter {
+            animation: slideUp 0.25s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
 </head>
-<body>
-<header>
-  <div class="wrap">
-    <h1>Kidsanapong<br>Aroonrunglert</h1>
-    <span class="nick">Pooh</span>
-    <p>Nonthaburi, Thailand</p>
-  </div>
-</header>
+<body class="min-h-screen p-3 sm:p-6 flex flex-col items-center justify-center">
 
-<main class="wrap">
-  <section id="profile">
-    <h2>Profile</h2>
-    <p>สวัสดีครับ ผมชื่อกิดสนพงษ์ (พูห์) นักศึกษาจาก UTCC ที่มีประสบการณ์ทำงานในสายคอนเสิร์ตและไลฟ์เฮาส์ ผมชอบทำงานเป็นทีม รับมือกับสถานการณ์หน้างานได้ดี และรักดนตรีเป็นชีวิตจิตใจ ตอนนี้กำลังมองหาโอกาสฝึกงานและการทำงานที่ได้เรียนรู้สิ่งใหม่ ๆ</p>
-  </section>
+    <!-- Main Container -->
+    <div class="w-full max-w-5xl space-y-4">
 
-  <section id="experience">
-    <h2>Work experience</h2>
-    <div class="card">
-      <strong>Melt Livehouse Concert</strong>
-      <span>ประสบการณ์ทำงานในไลฟ์เฮาส์และงานคอนเสิร์ต ทำงานร่วมกับทีมงานและผู้ชม</span>
+        <!-- 1. Header & Top Controls -->
+        <header class="flex flex-col md:flex-row md:items-center md:justify-between gap-3 px-1">
+            <div>
+                <h1 class="text-xl sm:text-2xl font-semibold tracking-tight text-white flex items-center gap-2">
+                    Teenoi Express Lane — สายพานส่งด่วนสองชั้น
+                </h1>
+                <p class="text-xs sm:text-sm text-gray-400 mt-0.5">
+                    จำลองระบบลำเลียงถาดอาหารอัตโนมัติ (ชั้นบนส่งด่วน / ชั้นล่างคืนถาดเปล่า)
+                </p>
+            </div>
+            
+            <div class="flex flex-wrap items-center gap-2.5">
+                <!-- Peak Hour Rush Button -->
+                <button id="btn-peak" onclick="togglePeakHour()" 
+                    class="flex items-center gap-2 px-4 py-2 rounded-full bg-[#1c1e24] hover:bg-[#262932] border border-[#343844] text-sm font-medium text-gray-200 transition active:scale-95">
+                    <span id="peak-icon" class="text-amber-400">⚡</span>
+                    <span id="peak-text">จำลองช่วงพีค (Peak Hour Rush)</span>
+                </button>
+
+                <!-- Reset Button -->
+                <button onclick="resetSimulation()" 
+                    class="flex items-center gap-1.5 px-4 py-2 rounded-full bg-[#172554]/80 hover:bg-[#1e3a8a] border border-blue-500/50 text-sm font-medium text-blue-100 transition active:scale-95">
+                    <span>↻</span>
+                    <span>รีเซ็ต</span>
+                </button>
+            </div>
+        </header>
+
+        <!-- 2. Live KPI Dashboard Cards -->
+        <section class="grid grid-cols-2 lg:grid-cols-4 gap-3">
+            <!-- Card 1: Avg Delivery Time -->
+            <div class="bg-[#181a1f] border border-[#262932] rounded-2xl p-4 flex flex-col justify-between">
+                <span class="text-xs text-gray-400">เวลาส่งเฉลี่ย</span>
+                <div class="text-xl sm:text-2xl font-semibold text-white mt-1.5" id="kpi-avg-time">3.7 วินาที</div>
+            </div>
+
+            <!-- Card 2: Active Trays on Belt -->
+            <div class="bg-[#181a1f] border border-[#262932] rounded-2xl p-4 flex flex-col justify-between">
+                <span class="text-xs text-gray-400">ถาดบนสายพาน</span>
+                <div class="text-xl sm:text-2xl font-semibold text-white mt-1.5" id="kpi-active-belt">0 ชุด (0 ถาด)</div>
+            </div>
+
+            <!-- Card 3: Returned Trays -->
+            <div class="bg-[#181a1f] border border-[#262932] rounded-2xl p-4 flex flex-col justify-between">
+                <span class="text-xs text-gray-400">คืนถาดเปล่าแล้ว</span>
+                <div class="text-xl sm:text-2xl font-semibold text-white mt-1.5" id="kpi-returned">6 ถาด</div>
+            </div>
+
+            <!-- Card 4: Kitchen Queue -->
+            <div class="bg-[#181a1f] border border-[#262932] rounded-2xl p-4 flex flex-col justify-between">
+                <span class="text-xs text-gray-400">คิวรอปล่อยครัว</span>
+                <div class="text-xl sm:text-2xl font-semibold text-white mt-1.5" id="kpi-queue">0 คิว</div>
+            </div>
+        </section>
+
+        <!-- 3. Interactive 2D Simulation Floorplan -->
+        <section class="bg-[#181a1f] border border-[#262932] rounded-3xl p-4 sm:p-5 relative overflow-hidden">
+            
+            <!-- Main Floorplan Grid: Left Kitchen/Wash + Right Booths & Dual Track -->
+            <div class="grid grid-cols-1 md:grid-cols-12 gap-4 items-stretch">
+                
+                <!-- Left Column: Kitchen & Dishwashing Station -->
+                <div class="md:col-span-3 bg-[#14161a] border border-[#23262f] rounded-2xl p-4 flex flex-row md:flex-col justify-between min-h-[110px] md:min-h-[290px]">
+                    <div>
+                        <div class="text-sm font-medium text-gray-200 flex items-center gap-2">
+                            <span class="w-2 h-2 rounded-full bg-blue-400 animate-pulse"></span>
+                            ครัวกลาง (Kitchen)
+                        </div>
+                        <div class="text-xs text-gray-400 mt-1" id="kitchen-queue-label">คิวรอปล่อย: 0</div>
+                        
+                        <!-- Visual Mini Dispatch Queue Indicators -->
+                        <div id="kitchen-queue-visual" class="flex flex-wrap gap-1 mt-3"></div>
+                    </div>
+
+                    <div class="text-right md:text-left border-l md:border-l-0 md:border-t border-[#23262f] pl-4 md:pl-0 md:pt-3">
+                        <div class="text-sm font-medium text-gray-200 flex items-center md:justify-start justify-end gap-2">
+                            <span class="w-2 h-2 rounded-full bg-amber-400"></span>
+                            จุดล้างจาน (Wash)
+                        </div>
+                        <div class="text-xs text-gray-400 mt-1" id="wash-count-label">รับคืนแล้ว 6</div>
+                    </div>
+                </div>
+
+                <!-- Right Column: 4 Dining Booths + Dual Conveyor Tracks -->
+                <div class="md:col-span-9 flex flex-col justify-between gap-3 relative" id="simulation-stage">
+                    
+                    <!-- 4 Dining Booths Row -->
+                    <div class="grid grid-cols-4 gap-2 sm:gap-3" id="booths-container">
+                        <!-- Booth cards injected dynamically via JS -->
+                    </div>
+
+                    <!-- Dual-Track Conveyor Canvas Container -->
+                    <div class="relative w-full h-[112px] select-none" id="canvas-wrapper">
+                        <canvas id="conveyorCanvas" class="w-full h-full block rounded-xl"></canvas>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- Legend & Hint Footer inside Simulation Card -->
+            <div class="mt-4 pt-3 border-t border-[#23262f] flex flex-col sm:flex-row sm:items-center justify-between gap-2 text-xs text-gray-400">
+                <div class="flex flex-wrap items-center gap-x-4 gap-y-1.5">
+                    <span class="flex items-center gap-1.5">
+                        <span class="w-2.5 h-2.5 rounded-full bg-[#38bdf8] inline-block"></span>
+                        ชั้นบน: ส่งด่วนจากครัว
+                    </span>
+                    <span class="flex items-center gap-1.5">
+                        <span class="w-2.5 h-2.5 rounded-full bg-[#facc15] inline-block"></span>
+                        ชั้นล่าง: คืนถาดเปล่า
+                    </span>
+                    <span class="flex items-center gap-1.5">
+                        <span class="w-2.5 h-2.5 rounded-full bg-[#22c55e] inline-block"></span>
+                        จุดจอดพร้อมรับ
+                    </span>
+                    <span class="flex items-center gap-1.5">
+                        <span class="w-2.5 h-2.5 rounded-full bg-[#f472b6] inline-block"></span>
+                        กำลังเทียบจอด
+                    </span>
+                </div>
+                <div class="italic text-gray-400/90">
+                    ชี้ที่ถาดหรือโต๊ะเพื่อดูเวลาถึงโดยประมาณ
+                </div>
+            </div>
+
+            <!-- Floating Interactive Tooltip -->
+            <div id="sim-tooltip" class="hidden pointer-events-none fixed z-50 bg-[#0f1115]/95 border border-gray-700 text-white text-xs rounded-xl px-3 py-2 shadow-2xl backdrop-blur-md">
+            </div>
+        </section>
+
+        <!-- 4. Bottom Control Panel -->
+        <section class="bg-[#181a1f] border border-[#262932] rounded-3xl p-4 sm:p-5 space-y-4">
+            
+            <!-- Row 1: Target Booth Selector -->
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                <span class="text-sm font-medium text-gray-300">เลือกโต๊ะเป้าหมาย</span>
+                <div class="grid grid-cols-2 sm:flex sm:flex-wrap gap-2" id="booth-selector-buttons">
+                    <!-- Selector buttons populated via JS -->
+                </div>
+            </div>
+
+            <!-- Row 2: Order & Return Action Buttons -->
+            <div class="flex flex-wrap items-center gap-2.5">
+                <button onclick="placeOrder(4, 'ชุดเนื้อออสฯ + สามชั้น')" 
+                    class="flex-1 sm:flex-none flex items-center justify-center gap-2 px-4 py-2.5 rounded-full bg-[#172554]/80 hover:bg-[#1e3a8a] border border-blue-500/60 text-sm font-medium text-blue-100 transition active:scale-95 shadow-sm">
+                    <span class="w-4 h-4 rounded-full border border-blue-300 flex items-center justify-center text-xs leading-none">+</span>
+                    <span>+ สั่งชุดเนื้อ 4 ถาด</span>
+                </button>
+
+                <button onclick="placeOrder(6, 'ชุดรวมมิตรทะเล & ชีส')" 
+                    class="flex-1 sm:flex-none flex items-center justify-center gap-2 px-4 py-2.5 rounded-full bg-[#172554]/80 hover:bg-[#1e3a8a] border border-blue-500/60 text-sm font-medium text-blue-100 transition active:scale-95 shadow-sm">
+                    <span class="w-4 h-4 rounded-full border border-blue-300 flex items-center justify-center text-xs leading-none">+</span>
+                    <span>+ สั่งรวมมิตร 6 ถาด</span>
+                </button>
+
+                <button onclick="returnEmptyTrays()" 
+                    class="w-full sm:w-auto flex items-center justify-center gap-2 px-4 py-2.5 rounded-full bg-[#22252c] hover:bg-[#2c303a] border border-[#363b47] text-sm font-medium text-gray-200 transition active:scale-95">
+                    <svg class="w-4 h-4 text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h10a8 8 0 018 8v2M3 10l6 6m-6-6l6-6"/>
+                    </svg>
+                    <span>คืนถาดเปล่า (Return Trays)</span>
+                </button>
+            </div>
+
+            <!-- Row 3: Conveyor Speed Slider -->
+            <div class="pt-1 flex items-center gap-4">
+                <label for="speed-slider" class="text-xs sm:text-sm text-gray-300 whitespace-nowrap leading-tight">
+                    ความเร็ว<br class="sm:hidden">สายพาน
+                </label>
+                <div class="flex-1 flex items-center">
+                    <input type="range" id="speed-slider" min="0.5" max="2.5" step="0.1" value="1.0" class="w-full">
+                </div>
+                <div id="speed-display" class="px-3 py-1 rounded-lg bg-[#22252c] border border-[#323642] text-xs sm:text-sm font-mono font-medium text-white min-w-[54px] text-center">
+                    1.0x
+                </div>
+            </div>
+        </section>
+
     </div>
-  </section>
 
-  <section id="education">
-    <h2>Education</h2>
-    <div class="card">
-      <strong>University of the Thai Chamber of Commerce (UTCC)</strong>
-      <span>มหาวิทยาลัยหอการค้าไทย</span>
-    </div>
-  </section>
+    <!-- Non-intrusive Toast Notification Container -->
+    <div id="toast-container" class="fixed bottom-4 right-4 z-50 flex flex-col gap-2 pointer-events-none"></div>
 
-  <section id="interests">
-    <h2>Interests</h2>
-    <ul>
-      <li>Playing guitar</li>
-      <li>Singing</li>
-    </ul>
-  </section>
+    <script>
+        /**
+         * Teenoi Express Lane — Dual-Track Conveyor Simulation Engine
+         * Handles order queuing, collision-safe dispatch spacing, smooth 60fps canvas rendering,
+         * booth tray stacking, and empty tray return loop.
+         */
 
-  <section id="contact">
-    <h2>Address</h2>
-    <p>Nonthaburi, Thailand</p>
-  </section>
-</main>
+        // --- Configuration & State ---
+        const MAX_BOOTH_CAPACITY = 12;
+        const SAFE_SPACING_PX = 68; // Minimum horizontal gap between batches on express belt
+        const BASE_BELT_SPEED = 140; // Pixels per second at 1.0x
 
-<footer>© 2026 Kidsanapong Aroonrunglert</footer>
+        let state = {
+            selectedBoothId: 2,
+            speedMultiplier: 1.0,
+            isPeakHour: false,
+            peakTimer: null,
+            returnedTotal: 6,
+            deliveryTimes: [3.4, 3.8, 3.9], // Initial baseline average = 3.7s
+            booths: [
+                { id: 1, name: 'โต๊ะ 1', trays: 2, status: 'ready', dockingTimer: 0 },
+                { id: 2, name: 'โต๊ะ 2', trays: 8, status: 'ready', dockingTimer: 0 },
+                { id: 3, name: 'โต๊ะ 3', trays: 6, status: 'ready', dockingTimer: 0 },
+                { id: 4, name: 'โต๊ะ 4', trays: 0, status: 'ready', dockingTimer: 0 },
+            ],
+            kitchenQueue: [], // Orders waiting for safe spacing to enter the express belt
+            expressBatches: [], // Active food condo batches moving right on upper track
+            returnBatches: [], // Empty tray batches moving left on lower track
+            chevronOffset: 0,
+            lastFrameTime: performance.now(),
+            hoveredItem: null
+        };
+
+        // --- Audio Synthesizer (Web Audio API - No external URLs) ---
+        const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        function playChime(type = 'arrive') {
+            try {
+                if (audioCtx.state === 'suspended') audioCtx.resume();
+                const osc = audioCtx.createOscillator();
+                const gain = audioCtx.createGain();
+                osc.connect(gain);
+                gain.connect(audioCtx.destination);
+
+                const now = audioCtx.currentTime;
+                if (type === 'arrive') {
+                    // Pleasant dual-tone arrival chime
+                    osc.type = 'sine';
+                    osc.frequency.setValueAtTime(587.33, now); // D5
+                    osc.frequency.setValueAtTime(880, now + 0.08); // A5
+                    gain.gain.setValueAtTime(0.06, now);
+                    gain.gain.exponentialRampToValueAtTime(0.001, now + 0.3);
+                    osc.start(now);
+                    osc.stop(now + 0.3);
+                } else if (type === 'dispatch') {
+                    osc.type = 'triangle';
+                    osc.frequency.setValueAtTime(320, now);
+                    osc.frequency.exponentialRampToValueAtTime(480, now + 0.09);
+                    gain.gain.setValueAtTime(0.04, now);
+                    gain.gain.exponentialRampToValueAtTime(0.001, now + 0.1);
+                    osc.start(now);
+                    osc.stop(now + 0.1);
+                }
+            } catch (e) {
+                // Ignore audio errors if blocked by browser autoplay policy
+            }
+        }
+
+        // --- Toast Message System (Replaces alert) ---
+        function showToast(message, type = 'info') {
+            const container = document.getElementById('toast-container');
+            const el = document.createElement('div');
+            const colors = {
+                info: 'bg-[#1e222b] border-blue-500/50 text-blue-100',
+                warn: 'bg-[#2a1c21] border-rose-500/60 text-rose-100',
+                success: 'bg-[#182620] border-emerald-500/50 text-emerald-100'
+            };
+            el.className = `toast-enter px-4 py-2.5 rounded-xl border text-xs font-medium shadow-xl backdrop-blur-md ${colors[type] || colors.info}`;
+            el.textContent = message;
+            container.appendChild(el);
+            setTimeout(() => {
+                el.style.opacity = '0';
+                el.style.transform = 'translateY(6px)';
+                el.style.transition = 'all 0.2s ease';
+                setTimeout(() => el.remove(), 220);
+            }, 2400);
+        }
+
+        // --- UI Rendering Functions ---
+        function renderBoothCards() {
+            const container = document.getElementById('booths-container');
+            container.innerHTML = '';
+
+            state.booths.forEach(booth => {
+                const isSelected = booth.id === state.selectedBoothId;
+                const isDocking = booth.status === 'docking' || state.expressBatches.some(b => b.targetBoothId === booth.id && b.progress > 0.75);
+                
+                // Calculate red tray stacks on left & right of hotpot
+                const leftTrays = Math.ceil(booth.trays / 2);
+                const rightTrays = Math.floor(booth.trays / 2);
+
+                const card = document.createElement('div');
+                card.onclick = () => selectBooth(booth.id);
+                card.onmouseenter = (e) => handleBoothHover(e, booth);
+                card.onmousemove = (e) => moveTooltip(e);
+                card.onmouseleave = () => hideTooltip();
+
+                card.className = `cursor-pointer rounded-2xl border p-2.5 sm:p-3.5 flex flex-col items-center justify-between transition-all duration-200 relative min-h-[155px] sm:min-h-[175px] ${
+                    isSelected 
+                        ? 'booth-selected' 
+                        : 'bg-[#14161a] hover:bg-[#1a1d23] border-[#252832]'
+                }`;
+
+                card.innerHTML = `
+                    <!-- Header: Booth Name & Load -->
+                    <div class="text-center">
+                        <div class="text-xs sm:text-sm font-semibold text-white">${booth.name}</div>
+                        <div class="text-[11px] sm:text-xs text-gray-400 mt-0.5">${booth.trays}/${MAX_BOOTH_CAPACITY} ถาด</div>
+                    </div>
+
+                    <!-- Center Visual: Top-down Hotpot & Stacked Red Suki Trays -->
+                    <div class="my-2 flex items-center justify-center gap-2 sm:gap-3 w-full">
+                        <!-- Left Tray Stack -->
+                        <div class="flex flex-col gap-1 items-end min-w-[14px]">
+                            ${renderMiniTrayDots(leftTrays)}
+                        </div>
+
+                        <!-- Circular Induction Hotpot -->
+                        <div class="w-9 h-9 sm:w-11 sm:h-11 rounded-full bg-[#1b1d22] border border-gray-600/80 shadow-inner flex items-center justify-center relative">
+                            <div class="w-[1.5px] h-7 sm:h-8 bg-gray-600/80"></div>
+                            ${booth.trays > 0 ? '<div class="absolute inset-1 rounded-full border border-rose-500/20 animate-pulse"></div>' : ''}
+                        </div>
+
+                        <!-- Right Tray Stack -->
+                        <div class="flex flex-col gap-1 items-start min-w-[14px]">
+                            ${renderMiniTrayDots(rightTrays)}
+                        </div>
+                    </div>
+
+                    <!-- Status Badge -->
+                    <div class="flex items-center gap-1.5 text-[11px] sm:text-xs font-medium ${isDocking ? 'text-pink-400' : 'text-gray-300'}">
+                        <span class="w-2 h-2 rounded-full ${isDocking ? 'bg-pink-400 animate-ping' : 'bg-emerald-400'}"></span>
+                        <span>${isDocking ? 'กำลังเทียบจอด' : 'ช่องจอด'}</span>
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        function renderMiniTrayDots(count) {
+            // Render up to 3 visual stack indicators representing stacked suki condo trays
+            const visibleCount = Math.min(count, 3);
+            let html = '';
+            for (let i = 0; i < visibleCount; i++) {
+                html += `<span class="w-2.5 sm:w-3 h-1.5 rounded-[2px] bg-gradient-to-r from-rose-500 to-pink-500 shadow-sm"></span>`;
+            }
+            if (count > 3) {
+                html += `<span class="text-[9px] leading-none text-rose-400 font-semibold">+${count - 3}</span>`;
+            }
+            return html;
+        }
+
+        function renderSelectorButtons() {
+            const container = document.getElementById('booth-selector-buttons');
+            container.innerHTML = '';
+
+            state.booths.forEach(booth => {
+                const isSelected = booth.id === state.selectedBoothId;
+                const btn = document.createElement('button');
+                btn.onclick = () => selectBooth(booth.id);
+                btn.className = `px-3.5 py-1.5 rounded-full text-xs sm:text-sm font-medium border transition ${
+                    isSelected
+                        ? 'bg-[#172554] border-blue-400 text-white shadow-[0_0_12px_rgba(59,130,246,0.3)]'
+                        : 'bg-[#1c1e24] hover:bg-[#252830] border-[#2e323d] text-gray-300'
+                }`;
+                btn.textContent = `${booth.name} (${booth.trays}/${MAX_BOOTH_CAPACITY})`;
+                container.appendChild(btn);
+            });
+        }
+
+        function updateKPIs() {
+            // 1. Average Delivery Time
+            const avg = state.deliveryTimes.length > 0
+                ? (state.deliveryTimes.reduce((a, b) => a + b, 0) / state.deliveryTimes.length).toFixed(1)
+                : '0.0';
+            document.getElementById('kpi-avg-time').textContent = `${avg} วินาที`;
+
+            // 2. Active Trays on Belt (Express + Return)
+            const activeBatches = state.expressBatches.length;
+            const activeTrays = state.expressBatches.reduce((sum, b) => sum + b.trayCount, 0);
+            document.getElementById('kpi-active-belt').textContent = `${activeBatches} ชุด (${activeTrays} ถาด)`;
+
+            // 3. Returned Trays
+            document.getElementById('kpi-returned').textContent = `${state.returnedTotal} ถาด`;
+            document.getElementById('wash-count-label').textContent = `รับคืนแล้ว ${state.returnedTotal}`;
+
+            // 4. Kitchen Queue
+            const qLen = state.kitchenQueue.length;
+            document.getElementById('kpi-queue').textContent = `${qLen} คิว`;
+            document.getElementById('kitchen-queue-label').textContent = `คิวรอปล่อย: ${qLen}`;
+
+            // Visual queue badges in kitchen panel
+            const qVisual = document.getElementById('kitchen-queue-visual');
+            qVisual.innerHTML = state.kitchenQueue.map(item => 
+                `<span class="px-2 py-0.5 rounded bg-rose-500/20 border border-rose-500/40 text-[10px] text-rose-200">
+                    โต๊ะ ${item.targetBoothId} (${item.trayCount})
+                </span>`
+            ).join('');
+        }
+
+        // --- User Interactions ---
+        function selectBooth(id) {
+            state.selectedBoothId = id;
+            renderBoothCards();
+            renderSelectorButtons();
+        }
+
+        function placeOrder(trayCount, label, overrideBoothId = null) {
+            const targetId = overrideBoothId || state.selectedBoothId;
+            const booth = state.booths.find(b => b.id === targetId);
+            if (!booth) return;
+
+            // Calculate pending trays already en route to this booth
+            const pendingForBooth = [...state.kitchenQueue, ...state.expressBatches]
+                .filter(b => b.targetBoothId === targetId)
+                .reduce((sum, b) => sum + b.trayCount, 0);
+
+            if (booth.trays + pendingForBooth + trayCount > MAX_BOOTH_CAPACITY) {
+                if (!overrideBoothId) {
+                    showToast(`โต๊ะ ${targetId} ใกล้เต็มความจุ (${MAX_BOOTH_CAPACITY} ถาด) กรุณาคืนถาดเปล่าก่อนครับ`, 'warn');
+                }
+                return false;
+            }
+
+            state.kitchenQueue.push({
+                id: Date.now() + Math.random(),
+                targetBoothId: targetId,
+                trayCount: trayCount,
+                label: label,
+                createdAt: performance.now()
+            });
+
+            updateKPIs();
+            return true;
+        }
+
+        function returnEmptyTrays(overrideBoothId = null) {
+            const targetId = overrideBoothId || state.selectedBoothId;
+            const booth = state.booths.find(b => b.id === targetId);
+            if (!booth || booth.trays <= 0) {
+                if (!overrideBoothId) {
+                    showToast(`โต๊ะ ${targetId} ไม่มีถาดเปล่าให้ส่งคืน`, 'info');
+                }
+                return;
+            }
+
+            const traysToReturn = booth.trays;
+            booth.trays = 0;
+
+            // Calculate starting X position aligned with the booth center
+            const boothCenterRatio = (targetId - 0.5) / 4;
+
+            state.returnBatches.push({
+                id: Date.now() + Math.random(),
+                fromBoothId: targetId,
+                trayCount: traysToReturn,
+                ratioX: boothCenterRatio // Moves from boothCenterRatio down to 0.0 (Wash station)
+            });
+
+            renderBoothCards();
+            renderSelectorButtons();
+            updateKPIs();
+            if (!overrideBoothId) {
+                showToast(`ส่งคืนถาดเปล่าจากโต๊ะ ${targetId} (${traysToReturn} ถาด) ลงรางล่างแล้ว`, 'success');
+            }
+        }
+
+        function togglePeakHour() {
+            state.isPeakHour = !state.isPeakHour;
+            const btn = document.getElementById('btn-peak');
+            const text = document.getElementById('peak-text');
+
+            if (state.isPeakHour) {
+                btn.classList.add('border-amber-400/70', 'bg-amber-500/10', 'text-amber-200');
+                text.textContent = 'กำลังจำลองช่วงพีค (หยุด)';
+                showToast('เปิดโหมดช่วงพีค: ระบบกำลังรับออเดอร์ต่อเนื่องจากทุกโต๊ะ', 'info');
+
+                // Immediately trigger initial burst
+                triggerPeakBurst();
+                state.peakTimer = setInterval(triggerPeakBurst, 2200);
+            } else {
+                btn.classList.remove('border-amber-400/70', 'bg-amber-500/10', 'text-amber-200');
+                text.textContent = 'จำลองช่วงพีค (Peak Hour Rush)';
+                clearInterval(state.peakTimer);
+                state.peakTimer = null;
+            }
+        }
+
+        function triggerPeakBurst() {
+            // Pick a random booth and either order or return empty trays if full
+            const randomBooth = state.booths[Math.floor(Math.random() * state.booths.length)];
+            if (randomBooth.trays >= 8) {
+                returnEmptyTrays(randomBooth.id);
+            } else {
+                const isMeat = Math.random() > 0.45;
+                placeOrder(isMeat ? 4 : 6, isMeat ? 'ชุดเนื้อออสฯ + สามชั้น' : 'ชุดรวมมิตรทะเล & ชีส', randomBooth.id);
+            }
+        }
+
+        function resetSimulation() {
+            if (state.isPeakHour) togglePeakHour();
+            state.returnedTotal = 6;
+            state.deliveryTimes = [3.4, 3.8, 3.9];
+            state.kitchenQueue = [];
+            state.expressBatches = [];
+            state.returnBatches = [];
+            state.booths = [
+                { id: 1, name: 'โต๊ะ 1', trays: 2, status: 'ready', dockingTimer: 0 },
+                { id: 2, name: 'โต๊ะ 2', trays: 8, status: 'ready', dockingTimer: 0 },
+                { id: 3, name: 'โต๊ะ 3', trays: 6, status: 'ready', dockingTimer: 0 },
+                { id: 4, name: 'โต๊ะ 4', trays: 0, status: 'ready', dockingTimer: 0 },
+            ];
+            renderBoothCards();
+            renderSelectorButtons();
+            updateKPIs();
+            showToast('รีเซ็ตระบบจำลองเรียบร้อยแล้ว', 'info');
+        }
+
+        // Speed slider listener
+        const speedSlider = document.getElementById('speed-slider');
+        speedSlider.addEventListener('input', (e) => {
+            state.speedMultiplier = parseFloat(e.target.value);
+            document.getElementById('speed-display').textContent = `${state.speedMultiplier.toFixed(1)}x`;
+        });
+
+        // --- Canvas Dual-Track Rendering & Physics Loop ---
+        const canvas = document.getElementById('conveyorCanvas');
+        const ctx = canvas.getContext('2d');
+
+        function resizeCanvas() {
+            const wrapper = document.getElementById('canvas-wrapper');
+            const dpr = window.devicePixelRatio || 1;
+            const rect = wrapper.getBoundingClientRect();
+            canvas.width = rect.width * dpr;
+            canvas.height = rect.height * dpr;
+            ctx.scale(dpr, dpr);
+        }
+        window.addEventListener('resize', resizeCanvas);
+
+        // Hover Tooltip Handling on Canvas
+        canvas.addEventListener('mousemove', (e) => {
+            const rect = canvas.getBoundingClientRect();
+            const mouseX = e.clientX - rect.left;
+            const mouseY = e.clientY - rect.top;
+
+            let found = null;
+            // Check express batches (upper track: y around 8..48)
+            for (const batch of state.expressBatches) {
+                const bx = batch.x;
+                if (Math.abs(mouseX - bx) < 28 && mouseY >= 4 && mouseY <= 52) {
+                    const remainingDist = Math.max(0, batch.targetX - batch.x);
+                    const speed = BASE_BELT_SPEED * state.speedMultiplier;
+                    const eta = (remainingDist / speed).toFixed(1);
+                    found = {
+                        title: `ส่งด่วน -> โต๊ะ ${batch.targetBoothId}`,
+                        detail: `${batch.label} (${batch.trayCount} ถาด)`,
+                        eta: `ถึงในอีก ~${eta} วินาที`
+                    };
+                    break;
+                }
+            }
+
+            // Check return batches (lower track: y around 62..102)
+            if (!found) {
+                for (const ret of state.returnBatches) {
+                    const rx = ret.ratioX * rect.width;
+                    if (Math.abs(mouseX - rx) < 26 && mouseY >= 58 && mouseY <= 106) {
+                        const speedRatio = (BASE_BELT_SPEED * state.speedMultiplier) / rect.width;
+                        const eta = (ret.ratioX / speedRatio).toFixed(1);
+                        found = {
+                            title: `คืนถาดเปล่าจากโต๊ะ ${ret.fromBoothId}`,
+                            detail: `จำนวน ${ret.trayCount} ถาด -> จุดล้างจาน`,
+                            eta: `ถึงจุดล้างจานใน ~${eta} วินาที`
+                        };
+                        break;
+                    }
+                }
+            }
+
+            if (found) {
+                showTooltip(e, found);
+            } else {
+                hideTooltip();
+            }
+        });
+
+        canvas.addEventListener('mouseleave', hideTooltip);
+
+        function handleBoothHover(e, booth) {
+            const incoming = state.expressBatches.filter(b => b.targetBoothId === booth.id);
+            const queued = state.kitchenQueue.filter(q => q.targetBoothId === booth.id);
+            let etaText = 'ไม่มีออเดอร์กำลังส่ง';
+            if (incoming.length > 0) {
+                const rect = canvas.getBoundingClientRect();
+                const speed = BASE_BELT_SPEED * state.speedMultiplier;
+                const nearest = incoming[0];
+                const eta = Math.max(0.1, (nearest.targetX - nearest.x) / speed).toFixed(1);
+                etaText = `ออเดอร์กำลังวิ่งมาถึงใน ~${eta} วินาที`;
+            } else if (queued.length > 0) {
+                etaText = `มี ${queued.length} คิวรอปล่อยจากครัว`;
+            }
+
+            showTooltip(e, {
+                title: `${booth.name} (${booth.trays}/${MAX_BOOTH_CAPACITY} ถาด)`,
+                detail: booth.trays >= 10 ? 'แนะนำ: กดคืนถาดเปล่าเพื่อเพิ่มพื้นที่โต๊ะ' : 'สถานะ: พร้อมรับคอนโดอาหาร',
+                eta: etaText
+            });
+        }
+
+        function showTooltip(e, data) {
+            const tip = document.getElementById('sim-tooltip');
+            tip.innerHTML = `
+                <div class="font-semibold text-white">${data.title}</div>
+                <div class="text-gray-300 mt-0.5">${data.detail}</div>
+                <div class="text-sky-400 mt-1 font-medium">${data.eta}</div>
+            `;
+            tip.classList.remove('hidden');
+            moveTooltip(e);
+        }
+
+        function moveTooltip(e) {
+            const tip = document.getElementById('sim-tooltip');
+            if (tip.classList.contains('hidden')) return;
+            const x = Math.min(window.innerWidth - 220, e.clientX + 14);
+            const y = Math.max(10, e.clientY - 68);
+            tip.style.left = `${x}px`;
+            tip.style.top = `${y}px`;
+        }
+
+        function hideTooltip() {
+            document.getElementById('sim-tooltip').classList.add('hidden');
+        }
+
+        // --- Main Animation Loop (60fps) ---
+        function updateAndDraw(now) {
+            const dt = Math.min((now - state.lastFrameTime) / 1000, 0.1);
+            state.lastFrameTime = now;
+
+            const rect = canvas.getBoundingClientRect();
+            const width = rect.width;
+            const height = rect.height;
+
+            if (width === 0 || height === 0) {
+                requestAnimationFrame(updateAndDraw);
+                return;
+            }
+
+            const speedPx = BASE_BELT_SPEED * state.speedMultiplier;
+
+            // 1. Safe-Spacing Kitchen Dispatch Logic
+            if (state.kitchenQueue.length > 0) {
+                // Check if the entrance of the upper belt (x < SAFE_SPACING_PX) is clear
+                const isEntranceClear = state.expressBatches.every(b => b.x > SAFE_SPACING_PX);
+                if (isEntranceClear) {
+                    const nextOrder = state.kitchenQueue.shift();
+                    const boothCenterRatio = (nextOrder.targetBoothId - 0.5) / 4;
+                    state.expressBatches.push({
+                        ...nextOrder,
+                        x: 16,
+                        targetX: boothCenterRatio * width,
+                        dispatchedAt: now
+                    });
+                    playChime('dispatch');
+                    updateKPIs();
+                }
+            }
+
+            // 2. Update Express Batches (Upper Track -> Rightwards)
+            let needsBoothRender = false;
+            for (let i = state.expressBatches.length - 1; i >= 0; i--) {
+                const batch = state.expressBatches[i];
+                // Recalculate targetX dynamically in case window resized
+                batch.targetX = ((batch.targetBoothId - 0.5) / 4) * width;
+
+                const distToTarget = batch.targetX - batch.x;
+                batch.progress = Math.min(1, batch.x / batch.targetX);
+
+                // Smooth deceleration as it approaches the booth's docking bay
+                const decelFactor = distToTarget < 45 ? Math.max(0.38, distToTarget / 45) : 1.0;
+                batch.x += speedPx * decelFactor * dt;
+
+                if (batch.x >= batch.targetX) {
+                    // Arrived at Booth!
+                    const booth = state.booths.find(b => b.id === batch.targetBoothId);
+                    if (booth) {
+                        booth.trays = Math.min(MAX_BOOTH_CAPACITY, booth.trays + batch.trayCount);
+                        booth.status = 'docking';
+                        booth.dockingTimer = 0.65;
+                    }
+
+                    // Record delivery duration
+                    const durationSec = Math.max(1.2, (now - batch.createdAt) / 1000);
+                    state.deliveryTimes.push(durationSec);
+                    if (state.deliveryTimes.length > 15) state.deliveryTimes.shift();
+
+                    state.expressBatches.splice(i, 1);
+                    playChime('arrive');
+                    needsBoothRender = true;
+                }
+            }
+
+            // Update booth docking glow timers
+            state.booths.forEach(b => {
+                if (b.dockingTimer > 0) {
+                    b.dockingTimer -= dt;
+                    if (b.dockingTimer <= 0) {
+                        b.status = 'ready';
+                        needsBoothRender = true;
+                    }
+                }
+            });
+
+            // 3. Update Return Batches (Lower Track -> Leftwards)
+            for (let i = state.returnBatches.length - 1; i >= 0; i--) {
+                const ret = state.returnBatches[i];
+                ret.ratioX -= (speedPx * 0.9 * dt) / width;
+                if (ret.ratioX <= 0.02) {
+                    state.returnedTotal += ret.trayCount;
+                    state.returnBatches.splice(i, 1);
+                    needsBoothRender = true;
+                }
+            }
+
+            if (needsBoothRender) {
+                renderBoothCards();
+                renderSelectorButtons();
+                updateKPIs();
+            } else if (state.expressBatches.length > 0) {
+                updateKPIs();
+            }
+
+            // 4. Draw Dual-Track Conveyor Belts
+            ctx.clearRect(0, 0, width, height);
+
+            const trackHeight = 42;
+            const upperY = 8;
+            const lowerY = 62;
+            const chevronSpacing = 28;
+            state.chevronOffset = (state.chevronOffset + speedPx * 0.65 * dt) % chevronSpacing;
+
+            // Connector tick marks linking upper track to each booth
+            for (let b = 1; b <= 4; b++) {
+                const bx = ((b - 0.5) / 4) * width;
+                ctx.strokeStyle = '#2d323e';
+                ctx.lineWidth = 2;
+                ctx.beginPath();
+                ctx.moveTo(bx, 0);
+                ctx.lineTo(bx, upperY);
+                ctx.stroke();
+            }
+
+            // --- Draw Upper Express Track (Blue) ---
+            drawRoundedTrack(ctx, 2, upperY, width - 4, trackHeight, 12, '#131822', '#4776b8');
+            drawChevrons(ctx, 14, width - 14, upperY + trackHeight / 2, chevronSpacing, state.chevronOffset, 'right', 'rgba(96, 165, 250, 0.32)');
+
+            // --- Draw Lower Return Track (Amber/Yellow) ---
+            drawRoundedTrack(ctx, 2, lowerY, width - 4, trackHeight, 12, '#181713', '#b89b3b');
+            drawChevrons(ctx, 14, width - 14, lowerY + trackHeight / 2, chevronSpacing, state.chevronOffset, 'left', 'rgba(250, 204, 21, 0.30)');
+
+            // --- Draw Moving Condo Food Trays on Upper Track ---
+            state.expressBatches.forEach(batch => {
+                drawSukiCondoBatch(ctx, batch.x, upperY + trackHeight / 2, batch.trayCount, batch.targetBoothId, true);
+            });
+
+            // --- Draw Returning Empty Trays on Lower Track ---
+            state.returnBatches.forEach(ret => {
+                const rx = ret.ratioX * width;
+                drawSukiCondoBatch(ctx, rx, lowerY + trackHeight / 2, ret.trayCount, ret.fromBoothId, false);
+            });
+
+            requestAnimationFrame(updateAndDraw);
+        }
+
+        function drawRoundedTrack(ctx, x, y, w, h, r, fill, stroke) {
+            ctx.save();
+            ctx.beginPath();
+            ctx.roundRect(x, y, w, h, r);
+            ctx.fillStyle = fill;
+            ctx.fill();
+            ctx.lineWidth = 1.5;
+            ctx.strokeStyle = stroke;
+            ctx.stroke();
+            ctx.restore();
+        }
+
+        function drawChevrons(ctx, startX, endX, centerY, spacing, offset, direction, color) {
+            ctx.save();
+            ctx.strokeStyle = color;
+            ctx.lineWidth = 1.8;
+            ctx.lineCap = 'round';
+            ctx.lineJoin = 'round';
+
+            const size = 5.5;
+            if (direction === 'right') {
+                for (let x = startX + offset; x < endX - 6; x += spacing) {
+                    ctx.beginPath();
+                    ctx.moveTo(x - size, centerY - size);
+                    ctx.lineTo(x, centerY);
+                    ctx.lineTo(x - size, centerY + size);
+                    ctx.stroke();
+                }
+            } else {
+                for (let x = endX - offset; x > startX + 6; x -= spacing) {
+                    ctx.beginPath();
+                    ctx.moveTo(x + size, centerY - size);
+                    ctx.lineTo(x, centerY);
+                    ctx.lineTo(x + size, centerY + size);
+                    ctx.stroke();
+                }
+            }
+            ctx.restore();
+        }
+
+        function drawSukiCondoBatch(ctx, centerX, centerY, trayCount, boothNum, isFoodLoaded) {
+            ctx.save();
+            const trayW = 36;
+            const trayH = 24;
+            const stackLayers = Math.min(3, Math.ceil(trayCount / 2));
+
+            // Glowing carrier sled under the trays
+            ctx.fillStyle = isFoodLoaded ? 'rgba(56, 189, 248, 0.25)' : 'rgba(250, 204, 21, 0.2)';
+            ctx.beginPath();
+            ctx.roundRect(centerX - trayW / 2 - 3, centerY - trayH / 2 - 2, trayW + 6, trayH + 4, 6);
+            ctx.fill();
+
+            // Draw stacked Suki Teenoi red trays
+            for (let i = 0; i < stackLayers; i++) {
+                const offsetY = -i * 3;
+                ctx.fillStyle = isFoodLoaded ? '#e11d48' : '#9f1239';
+                ctx.strokeStyle = '#fda4af';
+                ctx.lineWidth = 1;
+                ctx.beginPath();
+                ctx.roundRect(centerX - trayW / 2, centerY - trayH / 2 + offsetY, trayW, trayH, 4);
+                ctx.fill();
+                ctx.stroke();
+            }
+
+            // Label badge showing target booth or count
+            ctx.fillStyle = '#ffffff';
+            ctx.font = '600 10px Prompt, sans-serif';
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            const topOffsetY = -(stackLayers - 1) * 3;
+            ctx.fillText(isFoodLoaded ? `T${boothNum}·${trayCount}` : `↩${trayCount}`, centerX, centerY + topOffsetY);
+
+            ctx.restore();
+        }
+
+        // --- Initialize App ---
+        window.addEventListener('DOMContentLoaded', () => {
+            renderBoothCards();
+            renderSelectorButtons();
+            updateKPIs();
+            resizeCanvas();
+            requestAnimationFrame(updateAndDraw);
+        });
+    </script>
 </body>
 </html>
